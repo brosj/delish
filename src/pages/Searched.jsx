@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
-import styled from 'styled-components'
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 function Searched() {
   const [searchedRecipes, setSearchedRecipes] = useState([]);
@@ -15,10 +16,23 @@ function Searched() {
   };
 
   useEffect(() => {
-    getSearched(params.search)
-  }, [params.search])
+    getSearched(params.search);
+  }, [params.search]);
 
-  return <Grid>{params.search}</Grid>
+  return (
+    <Grid>
+      {searchedRecipes.map((item) => {
+        return (
+          <Card key={item.id}>
+            <Link to={"/recipe/" + item.id}>
+              <img src={item.image} alt={item.title} />
+              <h4>{item.title}</h4>
+            </Link>
+          </Card>
+        );
+      })}
+    </Grid>
+  );
 }
 
 const Grid = styled.div`
@@ -43,4 +57,4 @@ const Card = styled.div`
   }
 `;
 
-export default Searched
+export default Searched;

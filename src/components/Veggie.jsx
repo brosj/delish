@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
+import { Link } from "react-router-dom";
 
 function Veggie() {
   const [veggie, setVeggie] = useState([]);
@@ -16,7 +17,7 @@ function Veggie() {
     );
     const data = await api.json();
     setVeggie(data.recipes);
-  }
+  };
 
   return (
     <div>
@@ -24,7 +25,7 @@ function Veggie() {
         <h3>Our Vegetarian Picks</h3>
         <Splide
           options={{
-            perPage: 3, 
+            perPage: 3,
             arrows: true,
             pagination: false,
             drag: "free",
@@ -35,9 +36,11 @@ function Veggie() {
             return (
               <SplideSlide key={recipe.id}>
                 <Card>
-                  <p>{recipe.title}</p>
-                  <img src={recipe.image} alt={recipe.title} />
-                  <Gradient />
+                  <Link to={"/recipe/" + recipe.id}>
+                    <p>{recipe.title}</p>
+                    <img src={recipe.image} alt={recipe.title} />
+                    <Gradient />
+                  </Link>
                 </Card>
               </SplideSlide>
             );
@@ -93,4 +96,4 @@ const Gradient = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
 `;
 
-export default Veggie
+export default Veggie;
